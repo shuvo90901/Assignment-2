@@ -5,11 +5,13 @@ const variantSchema = new Schema<Variant>({
   type: {
     type: String,
     required: [true, 'Variant type is required'],
+    unique: false,
     trim: true,
   },
   value: {
     type: String,
     required: [true, 'Variant value is required'],
+    unique: false,
     trim: true,
   },
 })
@@ -27,6 +29,12 @@ const inventorySchema = new Schema<Inventory>({
 })
 
 const productSchema = new Schema<Product>({
+  id: {
+    type: String,
+    required: [true, 'Product ID is required'],
+    unique: true,
+    trim: true,
+  },
   name: {
     type: String,
     required: [true, 'Product name is required'],
@@ -50,6 +58,7 @@ const productSchema = new Schema<Product>({
   },
   tags: {
     type: [String],
+    required: true,
     validate: {
       validator: function (value: string[]) {
         return value.every(
@@ -61,6 +70,7 @@ const productSchema = new Schema<Product>({
   },
   variants: {
     type: [variantSchema],
+    unique: false,
     validate: {
       validator: function (value: Variant[]) {
         return value.length > 0

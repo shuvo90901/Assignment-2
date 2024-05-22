@@ -1,5 +1,6 @@
 import express, { Application, Request, Response } from 'express'
 import cors from 'cors'
+import { ProductRoutes } from './app/modules/product/product.route'
 // import { StudentRoutes } from './app/modules/student/student.route'
 
 const app: Application = express()
@@ -7,7 +8,7 @@ const app: Application = express()
 app.use(express.json())
 app.use(cors())
 
-// app.use('/api/v1/students', StudentRoutes)
+app.use('/api/products', ProductRoutes)
 
 const getAController = (req: Request, res: Response) => {
   const a = 'Hello'
