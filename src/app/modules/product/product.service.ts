@@ -9,8 +9,13 @@ const createProductIntoDB = async (productData: Product) => {
   return result
 }
 
-const getAllProductsFromDB = async () => {
-  const result = await ProductModel.find()
+const getAllProductsFromDB = async (regex: RegExp, searchTerm: string) => {
+  let result
+  if (searchTerm) {
+    result = await ProductModel.find({ name: regex })
+  } else {
+    result = await ProductModel.find()
+  }
   return result
 }
 
@@ -28,6 +33,11 @@ const updateSingleProductFromDB = async (id: string, product: Product) => {
   const result = await ProductModel.updateOne({ id }, product)
   return result
 }
+
+// const searchProductFromDB = async (regex: RegExp) => {
+//   const result = await ProductModel.find({ name: regex })
+//   return result
+// }
 
 export const ProductServices = {
   createProductIntoDB,

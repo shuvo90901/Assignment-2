@@ -12,7 +12,7 @@ const createProduct = async (req: Request, res: Response) => {
 
     res.status(200).json({
       success: true,
-      message: 'Product is created succesfully',
+      message: 'Product created successfully!',
       data: result,
     })
   } catch (err) {
@@ -26,13 +26,24 @@ const createProduct = async (req: Request, res: Response) => {
 
 const getAllProduct = async (req: Request, res: Response) => {
   try {
-    const result = await ProductServices.getAllProductsFromDB()
+    const { searchTerm } = req.query
+    const regex = new RegExp(`^${searchTerm}`, 'i')
 
-    res.status(200).json({
-      success: true,
-      message: 'Products are retrieved succesfully',
-      data: result,
-    })
+    const result = await ProductServices.getAllProductsFromDB(regex, searchTerm)
+
+    if (searchTerm) {
+      res.status(200).json({
+        success: true,
+        message: 'Products matching search term {VALUE} fetched successfully!',
+        data: result,
+      })
+    } else {
+      res.status(200).json({
+        success: true,
+        message: 'Products fetched successfully!',
+        data: result,
+      })
+    }
   } catch (err) {
     res.status(500).json({
       success: false,
@@ -57,7 +68,7 @@ const getSingleProduct = async (req: Request, res: Response) => {
 
     res.status(200).json({
       success: true,
-      message: 'Product retrieved successfully',
+      message: 'Products fetched successfully!',
       data: result,
     })
   } catch (err) {
@@ -110,7 +121,7 @@ const updateSingleProduct = async (req: Request, res: Response) => {
 
     res.status(200).json({
       success: true,
-      message: 'Product is Updated succesfully',
+      message: 'Product Updated succesfully',
       data: result,
     })
   } catch (err) {

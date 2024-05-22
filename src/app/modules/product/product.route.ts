@@ -13,4 +13,6 @@ router.delete('/:productId', ProductControllers.deleteSingleProduct)
 
 router.put('/:productId', ProductControllers.updateSingleProduct)
 
+// router.get('/abc', ProductControllers.searchProduct)
+
 export const ProductRoutes = router
