@@ -82,6 +82,22 @@ const productSchema = new Schema<Product>({
     type: inventorySchema,
     required: [true, 'Inventory information is required'],
   },
+  isDeleted: {
+    type: Boolean,
+    default: false,
+  },
+})
+
+productSchema.pre('find', function (next) {
+  this.find({ isDeleted: { $ne: true } })
+
+  next()
+})
+
+productSchema.pre('findOne', function (next) {
+  this.find({ isDeleted: { $ne: true } })
+
+  next()
 })
 
 export const ProductModel = model<Product>('Product', productSchema)
