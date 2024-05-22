@@ -26,7 +26,7 @@ const createProduct = async (req: Request, res: Response) => {
 
 const getAllProduct = async (req: Request, res: Response) => {
   try {
-    const { searchTerm } = req.query
+    const { searchTerm } = req.query as { searchTerm: string | undefined }
     const regex = new RegExp(`^${searchTerm}`, 'i')
 
     const result = await ProductServices.getAllProductsFromDB(regex, searchTerm)
