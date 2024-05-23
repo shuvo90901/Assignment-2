@@ -29,7 +29,10 @@ const deleteSingleProductFromDB = async (id: string) => {
   return result
 }
 
-const updateSingleProductFromDB = async (id: string, product: Product) => {
+const updateSingleProductFromDB = async (
+  id: string,
+  product: Product | { inventory: { quantity: number; inStock: boolean } },
+) => {
   const result = await ProductModel.updateOne({ id }, product)
   return result
 }

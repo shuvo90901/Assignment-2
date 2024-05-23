@@ -13,7 +13,6 @@ const orderSchema = new Schema<Order>({
     type: String,
     required: true,
     trim: true,
-    unique: true,
   },
   price: {
     type: Number,
