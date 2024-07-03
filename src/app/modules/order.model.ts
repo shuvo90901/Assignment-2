@@ -7,7 +7,7 @@ const orderSchema = new Schema<Order>({
     type: String,
     required: true,
     trim: true,
-    unique: true,
+    unique: false,
   },
   productId: {
     type: String,

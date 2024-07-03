@@ -6,7 +6,7 @@ import { ProductServices } from '../product/product.service'
 // Controller function to handle order creation
 const createOrder = async (req: Request, res: Response) => {
   try {
-    const { order: orderData } = req.body
+    const orderData  = req.body
 
     // Validate the order data using Zod schema
     const zodparsedData = OrderValidateSchema.parse(orderData)
@@ -21,7 +21,7 @@ const createOrder = async (req: Request, res: Response) => {
       res.status(500).json({
         success: false,
         message:
-          'Product not found! You must be input actual productId from product.',
+          'Product not found! You must be input actual productId from product list.',
         data: null,
       })
     }
@@ -93,7 +93,7 @@ const getAllOrder = async (req: Request, res: Response) => {
     // Fetch all orders from the database, optionally filtering by email
     const result = await OrderServices.getAllOrdersFromDB(email)
 
-    if (typeof email === 'string' && result) {
+    if (typeof email === 'string' && result?.length!==0) {
       res.status(200).json({
         success: true,
         message: 'Orders fetched successfully for user email!',
@@ -107,7 +107,7 @@ const getAllOrder = async (req: Request, res: Response) => {
         data: result,
       })
     }
-    if (typeof email === 'string' && !result) {
+    if (typeof email === 'string' && result.length===0) {
       res.status(500).json({
         success: false,
         message: 'Order not found',

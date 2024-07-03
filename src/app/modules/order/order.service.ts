@@ -15,7 +15,7 @@ const getAllOrdersFromDB = async (email: string | undefined) => {
 
   // If an email is provided, fetch orders associated with that email
   if (email) {
-    result = await OrderModel.findOne({ email })
+    result = await OrderModel.find({ email })
   } else {
     // Otherwise, fetch all orders
     result = await OrderModel.find()

@@ -16,7 +16,6 @@ const inventoryValidationSchema = z.object({
 
 // Define the Validationschema for Product
 const productValidationSchema = z.object({
-  id: z.string(),
   name: z
     .string({ required_error: 'Product name is required' })
     .max(100, { message: 'Product name cannot exceed 100 characters' })
@@ -35,7 +34,6 @@ const productValidationSchema = z.object({
     .array(variantValidationSchema)
     .min(1, { message: 'At least one variant is required' }),
   inventory: inventoryValidationSchema,
-  isDeleted: z.boolean().default(false),
 })
 
 export default productValidationSchema

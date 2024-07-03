@@ -29,26 +29,25 @@ const getAllProductsFromDB = async (
 }
 
 // Function to fetch a single product from the database by its ID
-const getSingleProductFromDB = async (id: string) => {
+const getSingleProductFromDB = async (_id: string) => {
   // Find a product in the database with the provided ID
-  const result = await ProductModel.findOne({ id })
+  const result = await ProductModel.findById({ _id })
   return result
 }
 
 // Function to soft delete a single product from the database by its ID
-const deleteSingleProductFromDB = async (id: string) => {
-  // Soft delete the product by updating its 'isDeleted' field to true
-  const result = await ProductModel.updateOne({ id }, { isDeleted: true })
+const deleteSingleProductFromDB = async (_id: string) => {
+  const result = await ProductModel.findByIdAndDelete(_id)
   return result
 }
 
 // Function to update a single product in the database by its ID
 const updateSingleProductFromDB = async (
-  id: string,
+  _id: string,
   product: Product | { inventory: { quantity: number; inStock: boolean } },
 ) => {
   // Update the product in the database with the provided data
-  const result = await ProductModel.updateOne({ id }, product)
+  const result = await ProductModel.updateOne({ _id }, product)
   return result
 }
 

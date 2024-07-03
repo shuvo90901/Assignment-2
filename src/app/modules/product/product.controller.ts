@@ -2,11 +2,21 @@ import { Request, Response } from 'express'
 import productValidationSchema from './product.validation'
 import { ProductServices } from './product.service'
 
+
+// function generateUniqueId() {
+//   return `id_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+// }
+
+
 // Controller function to handle product creation
 const createProduct = async (req: Request, res: Response) => {
   try {
-    const { product: productData } = req.body
-
+    const  productData  = req.body
+  //   let uniqueId = generateUniqueId();
+  //   let productData = {
+  //     ...product,
+  //     id: uniqueId
+  // };
     // Validate the product data using Zod schema
     const zodparsedData = productValidationSchema.parse(productData)
 
@@ -132,7 +142,7 @@ const deleteSingleProduct = async (req: Request, res: Response) => {
 const updateSingleProduct = async (req: Request, res: Response) => {
   try {
     const { productId } = req.params
-    const { product: productData } = req.body
+    const productData = req.body
 
     // Validate the updated product data using Zod schema
     const zodparsedData = productValidationSchema.parse(productData)
