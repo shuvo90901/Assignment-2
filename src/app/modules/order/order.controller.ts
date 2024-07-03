@@ -16,7 +16,7 @@ const createOrder = async (req: Request, res: Response) => {
       zodparsedData.productId,
     )
 
-    // If the product is not found, return an error response
+    // If the product is not found, return an error response to user
     if (!product) {
       res.status(500).json({
         success: false,
